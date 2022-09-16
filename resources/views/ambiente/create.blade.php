@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'ambiente', 'titlePage' => 'Nuevo Programa'])
+@extends('layouts.main', ['activePage' => 'ambiente', 'titlePage' => 'Nuevo ambiente'])
 
 @section('content')
     <div class="content">
@@ -10,8 +10,8 @@
                         <div class="card ">
                             <!--Header-->
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title">Programa</h4>
-                                <p class="card-category">Ingresar datos del programa</p>
+                                <h4 class="card-title"> Ambiente</h4>
+                                <p class="card-category">Ingresar datos del ambiente</p>
                             </div>
                             <!--End header-->
                             <!--Body-->
@@ -21,7 +21,7 @@
                                     <label for="name" class="col-sm-2 col-form-label">Nombre ambiente</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" name="name"
-                                            placeholder="Nombre del programa" autocomplete="off">
+                                            placeholder="Nombre del ambiente" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="row">
