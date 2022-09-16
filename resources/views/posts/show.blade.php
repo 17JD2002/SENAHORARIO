@@ -8,7 +8,7 @@
                         <!--Header-->
                         <div class="card-header card-header-primary">
                             <h4 class="card-title">Centro</h4>
-                            <p class="card-category">Detalles del {{ $post->title }}</p>
+                            <p class="card-category">Detalles del centro --> {{ $post->title }}</p>
                         </div>
                         <!--End header-->
                         <!--Body-->
@@ -28,10 +28,6 @@
                                                     <tr>
                                                         <th>Descripcion</th>
                                                         <td>{{ $post->descripcion }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Regional</th>
-                                                        <td>{{ $post->regional->name }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Regional</th>

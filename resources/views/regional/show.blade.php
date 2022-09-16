@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <div class="card-title">Regional</div>
-                            <p class="card-category">Vista detallada de la regional {{ $regional->name }}</p>
+                            <p class="card-category">Vista detallada de la regional --> {{ $regional->name }}</p>
                         </div>
                         <!--body-->
                         <!--Start third-->

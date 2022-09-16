@@ -71,9 +71,19 @@
                                         <div class="form-group">
                                             <select class="form-control selectpicker" data-style="btn btn-link"
                                                 name="sede_id">
+                                                @if (Auth::user()->hasRole('admin'))
                                                 @foreach (App\Models\Sede::orderBy('name')->get() as $sede)
-                                                    <option value="{{ $sede->id }}">{{ $sede->name }}</option>
+                                                <option @if ($ficha->sede_id==$sede->id)
+selected
+                                                @endif  value="{{ $sede->id }}">{{ $sede->name }}</option>
                                                 @endforeach
+                                                @else
+                                                @foreach (Auth::user()->sedes as $sede)
+                                                    <option @if ($ficha->sede_id==$sede->id)
+                                                        selected
+                                                        @endif value="{{ $sede->id }}">{{ $sede->name }}</option>
+                                                @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

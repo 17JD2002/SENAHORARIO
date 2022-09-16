@@ -12,10 +12,18 @@ class FichaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ficha = Ficha::paginate(5);
+        if($request->user()->hasRole('admin')){
+            $ficha = Ficha::paginate(5);
+            return view('ficha.index', compact('ficha'));
+        }
+        if($request->user()->hasRole('coordinador')){
+            $sedes=$request->user()->sedes->pluck('id')->toArray();
+            $ficha = Ficha::whereIn('sede_id',$sedes)->paginate(5);
         return view('ficha.index', compact('ficha'));
+        }
+
     }
 
     /**

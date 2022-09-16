@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'ambiente', 'titlePage' => 'Programa'])
+@extends('layouts.main', ['activePage' => 'ambiente', 'titlePage' => 'Ambientes'])
 
 @section('content')
     <div class="content">

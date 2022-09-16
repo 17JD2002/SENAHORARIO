@@ -14,10 +14,14 @@ class ProgramaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programa = Programa::paginate(5);
+        if($request->user()->hasRole('admin')){
+           $programa = Programa::paginate(5);
         return view('programa.index', compact('programa'));
+        }
+
+
     }
 
     /**
@@ -42,6 +46,12 @@ class ProgramaController extends Controller
         return redirect()->route('programa.index');
     }
 
+    public function loadMalla($id,Request $request){
+        //$path1 = $request->file("file")->store('temp');
+        //$path=storage_path('app').'/'.$path1;
+        $programa= Programa::find($id);
+        return view('programa.modal',compact('programa'))->render();
+    }
     public function importExcel(Request $request){
         //$path1 = $request->file("file")->store('temp');
         //$path=storage_path('app').'/'.$path1;

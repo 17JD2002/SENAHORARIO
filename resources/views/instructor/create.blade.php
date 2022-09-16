@@ -22,9 +22,16 @@
                                         <div class="form-group">
                                             <select class="form-control selectpicker" data-style="btn btn-link"
                                                 name="sede_id">
-                                                @foreach (App\Models\Sede::orderBy('name')->get() as $sede)
-                                                    <option value="{{ $sede->id }}">{{ $sede->name }}</option>
+                                                @if (Auth::user()->hasRole('coordinador'))
+                                                @foreach (Auth::user()->sedes as $sede)
+                                                <option value="{{$sede->id}}">{{$sede->name}}</option>
                                                 @endforeach
+                                                @else
+                                                @foreach (App\Models\Sede::orderBy('name')->get() as $sede)
+                                                <option value="{{$sede->id}}">{{$sede->name}}</option>
+                                                @endforeach
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
@@ -82,13 +89,6 @@
                                     <div class="col-sm-7">
                                         <input type="email" class="form-control" name="email" placeholder="Ingrese Correo"
                                             autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label for="address" class="col-sm-2 col-form-label">Direccion:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="address"
-                                            placeholder="Ingrese direccion" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="row">

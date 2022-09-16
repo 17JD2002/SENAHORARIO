@@ -29,6 +29,7 @@
                                         <th> Codigo Programa </th>
                                         <th> Nombre programa</th>
                                         <th> Sigla </th>
+                                        <th> Malla </th>
                                         <th class="text-right"> Acciones </th>
                                     </thead>
                                     <tbody>
@@ -37,6 +38,7 @@
                                                 <td>{{ $programa->id_programa }}</td>
                                                 <td>{{ $programa->program_name }}</td>
                                                 <td>{{ $programa->sigla }}</td>
+                                                <td><button data-id={{$programa->id}} data-toggle="modal" data-target="#programaModal" class="btn btn-info btn-sm btn_malla">Ver malla</button></td>
                                                 <td class="td-actions text-right">
                                                     <a href="{{ route('programa.show', $programa->id) }}"
                                                         class="btn btn-info">
@@ -69,4 +71,39 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bd-example-modal-lg" id="programaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Malla</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="content_malla">
+
+
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+@endsection
+@section('script')
+<script>
+$(document).on("click",".btn_malla",function(){
+
+        $.ajax({
+            type: "POST",
+            url: 'load/malla/'+$(this).data("id"),
+            data: {"_token": "{{ csrf_token() }}"
+        },
+            success: function(data)
+            {
+                $("#content_malla").html(data);
+           }
+       });
+    });
+</script>
 @endsection

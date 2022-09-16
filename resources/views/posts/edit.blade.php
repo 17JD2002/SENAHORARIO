@@ -11,7 +11,7 @@
             <!--Header-->
             <div class="card-header card-header-primary">
               <h4 class="card-title">Editar Centro</h4>
-              <p class="card-category">Datos del Centro {{($post->title)}}</p>
+              <p class="card-category">Datos del Centro --> {{($post->title)}}</p>
             </div>
             <!--End header-->
             <!--Body-->

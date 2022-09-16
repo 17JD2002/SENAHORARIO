@@ -1,4 +1,4 @@
-@extends('layouts.main', ['activePage' => 'instructor', 'titlePage' => 'Instructor'])
+@extends('layouts.main', ['activePage' => 'instructor', 'titlePage' => 'Instructores'])
 @section('content')
     <div class="content">
       <div class="container-fluid">
@@ -23,7 +23,7 @@
                             @csrf
                           <input type="file" name="file">
                            <button type="submit" class="btn btn-sm btn-facebook">Importar Excel</button>
-                           <a class="btn btn-sm btn-warning" href="{{asset('excel/plantillaInstructor.xlsx')}}" target="_blank"> Descargar Plantilla</a>
+                           <a class="btn btn-sm btn-warning" href="{{asset('excel/PlantillaInstructor.xlsx')}}" target="_blank"> Descargar Plantilla</a>
                         </form>
                         <a href="{{ route('instructor.create') }}" class="btn btn-sm btn-facebook">Añadir usuario</a>
                       </div>

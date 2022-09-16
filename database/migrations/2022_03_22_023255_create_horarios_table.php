@@ -18,10 +18,11 @@ class CreateHorariosTable extends Migration
             $table->time('inicial');
             $table->time('final');
             $table->string('day');
-            $table->integer('ambiente_id');
+            $table->string('description')->nullable();
+            $table->integer('ambiente_id')->nullable();
             $table->integer('user_id');
-            $table->integer('competencia_id');
-            $table->integer('ficha_id');
+            $table->integer('competencia_id')->nullable();
+            $table->integer('ficha_id')->nullable();
             $table->timestamps();
         });
     }

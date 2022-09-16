@@ -21,7 +21,7 @@ class InstructorImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         $user =  User::create(['name'     => $row["nombre"]." ".$row["apellido"],
-                              'email'    => $row["correo"],
+                              'email'    => $row["email"],
                               'password' => bcrypt("12345678"),
 
     ]);
@@ -40,7 +40,7 @@ class InstructorImport implements ToModel,WithHeadingRow
             'lastname'     => $row["apellido"],
             'birthday'     =>\Carbon\Carbon::parse($row["cumple"]),
             'residence_city'     => $row["ciudad"],
-            'email'     => $row["correo"],
+            'email'     => $row["email"],
             'phone'     => $row["telefono"],
             'contractor_type'     => $contrato,
             'user_id'     => $user->id,

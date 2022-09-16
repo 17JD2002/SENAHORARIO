@@ -15,14 +15,26 @@ class AsignarfichaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->user()->hasRole('admin')){
+            $users = User::whereHas('roles', function($q){
+                    $q->where('name', 'aprendiz')->orWhere('name','instructor');
+                }
+            )->get();
+            return view('asignarficha.index',compact('users'));
+        }
 
-        $users = User::whereHas('roles', function($q){
-                $q->where('name', 'aprendiz')->orWhere('name','instructor');
-            }
-        )->get();
-        return view('asignarficha.index',compact('users'));
+        if($request->user()->hasRole('coordinador')){
+            $sedes=$request->user()->sedes->pluck('id')->toArray();
+            $users = User::whereHas('roles',function($q){
+                $q->where('name','instructor');
+            })->whereHas('sedes',function($q) use($sedes) {
+                $q->whereIn('sede_id', $sedes);
+            })->paginate(5);
+
+            return view('asignarficha.index',compact('users'));
+        }
     }
 
     /**

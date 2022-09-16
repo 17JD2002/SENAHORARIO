@@ -29,13 +29,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="name" class="col-sm-2 col-form-label">Nombre resultado de aprendizaje</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="descripcion"
-                                            placeholder="descripcion" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <label for="sigla" class="col-sm-2 col-form-label">Identificacion</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" name="identificacion"

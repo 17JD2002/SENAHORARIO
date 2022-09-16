@@ -20,6 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('load/fichas/{string}', [App\Http\Controllers\FrontendController::class, 'loadfichas']);
+Route::post('load/ficha/horario/{id}', [App\Http\Controllers\FrontendController::class, 'loadFichasHorario']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('instructor', 'App\Http\Controllers\InstructorController');
@@ -44,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('competencia', App\Http\Controllers\CompetenciaController::class);
     Route::resource('resultado', App\Http\Controllers\ResultadoController::class);
     Route::resource('horario', App\Http\Controllers\HorarioController::class);
+    Route::resource('horarioevento', App\Http\Controllers\HorarioEventoController::class);
     Route::post('/load/regional/{id}', [App\Http\Controllers\HorarioController::class, 'loadRegional']);
     Route::post('/load/post/{id}', [App\Http\Controllers\HorarioController::class, 'loadCentro']);
     Route::post('/load/sede/{id}', [App\Http\Controllers\HorarioController::class, 'loadSede']);
@@ -51,6 +54,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/save/horario', [App\Http\Controllers\HorarioController::class, 'saveHorario']);
     Route::post('/edit/horario/{id}', [App\Http\Controllers\HorarioController::class, 'editHorario']);
     Route::post('/delete/horario/{id}', [App\Http\Controllers\HorarioController::class, 'deleteHorario']);
+    Route::post('delete/horariosede/{id}/{id_ficha}', [App\Http\Controllers\HorarioController::class, 'deleteHorariosede']);
+
+    Route::post('load/instructores/{string}', [App\Http\Controllers\HorarioEventoController::class, 'loadInstructores']);
+    Route::post('load/instructor/horario/{id}', [App\Http\Controllers\HorarioEventoController::class, 'loadIntructorHorario']);
+
+    Route::post('/save/evento', [App\Http\Controllers\HorarioEventoController::class, 'saveHorario']);
+    Route::post('/edit/evento/{id}', [App\Http\Controllers\HorarioEventoController::class, 'editHorario']);
+    Route::post('/delete/evento/{id}', [App\Http\Controllers\HorarioEventoController::class, 'deleteHorario']);
+
+    Route::post('/load/malla/{id}', [App\Http\Controllers\ProgramaController::class, 'loadMalla']);
+
+
 
 });
 

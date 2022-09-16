@@ -20,7 +20,7 @@
 @endif
 
 @if (isset($mallas) )
-<option >Selecciona una ficha</option>
+<option >Selecciona una malla</option>
 @foreach ($mallas as $malla)
     @foreach ($malla->competencias as $competencia)
     <option value="{{$competencia->id}}">Trimestre {{$malla->trimestre}} / {{$competencia->name}}</option>
@@ -32,7 +32,22 @@
 @if (isset($instructores) )
 <option >Selecciona un instructor</option>
 @foreach ($instructores as $instructor)
-<option value="{{$instructor->id}}">{{$instructor->name}}</option>
+@php
+    $count=0;
+    foreach ($instructor->horarios as $h){
+        $inicial=\Carbon\Carbon::parse($h->inicial);
+        $final=\Carbon\Carbon::parse($h->final);
+        $dif=$inicial->diff($final);
+        $minutes = $dif->days * 24 * 60;
+        $minutes += $dif->h * 60;
+        $minutes += $dif->i;
+        $count=$count+$minutes;
+    }
+    $total=(intval($instructor->instructor->contractor_type)-round($count / 60, 2));
+@endphp
+@if (!$total<=0)
+<option value="{{$instructor->id}}">{{$instructor->name." ".$instructor->lastname." - (".$total.")"}}</option>
+@endif
 @endforeach
 @endif
 
@@ -72,6 +87,7 @@ $old_martes=0;
 $old_miercoles=0;
 $old_jueves=0;
 $old_viernes=0;
+
             ?>
 
 @foreach ($periodo as $hora)
@@ -197,9 +213,17 @@ $old_viernes=0;
 @endif
 
 @if (isset($ambientes))
+<div class="row">
+<div class="col-10">
+
+</div>
+<div class="col-2">
+    <button type="button" id="" class="btn btn-danger eliminar_horario">Eliminar Horario</button>
+
+</div>
+
+</div>
 <div class="card card-nav-tabs card-plain">
-
-
     <div class="card-header card-header-primary">
         <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
         <div class="nav-tabs-navigation">

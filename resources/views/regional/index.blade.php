@@ -36,7 +36,7 @@
                                                         <a href="{{ route('regional.edit', $regional->id) }}"
                                                             class="btn btn-success"> <i class="material-icons">edit</i> </a>
                                                         <form action="{{ route('regional.destroy', $regional->id) }}" method="post"
-                                                            onsubmit="return confirm('Quieres eliminar esta Ficha?')"
+                                                            onsubmit="return confirm('¿Quieres eliminar esta REGIONAL?')"
                                                             style="display: inline-block;">
                                                             @csrf
                                                             @method('DELETE')

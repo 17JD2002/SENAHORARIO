@@ -17,11 +17,21 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <select class="form-control selectpicker" data-style="btn btn-link"
-                                                id="regional">
+                                                id="regional" @if (Auth::user()->hasRole('coordinador'))
+                                            disabled
+                                                @endif>
+                                                @if (Auth::user()->hasRole('admin'))
                                                 <option >Selecciona una region</option>
                                                 @foreach (App\Models\Regional::all() as $regional)
                                                     <option value="{{ $regional->id }}">{{ $regional->name }}</option>
                                                 @endforeach
+                                                @else
+                                                @php
+                                                    $region=Auth::user()->sedes()->first()->post->regional;
+                                                @endphp
+                                                <option value="{{$region->id}}">{{$region->name}}</option>
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
@@ -30,7 +40,16 @@
                                     <label for="region" class="col-12 col-form-label">selecciona el centro</label>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <select class="form-control selectpicker" data-style="btn btn-link" id="post">
+                                            <select class="form-control selectpicker" data-style="btn btn-link" id="post" @if (Auth::user()->hasRole('coordinador'))
+                                                disabled
+                                                    @endif>
+                                                    @if (Auth::user()->hasRole('coordinador'))
+                                                    @php
+                                                    $post=Auth::user()->sedes()->first()->post;
+                                                @endphp
+                                                <option value="{{$post->id}}">{{$post->title}}</option>
+
+                                                    @endif
 
                                             </select>
                                         </div>
@@ -42,7 +61,13 @@
                                         <div class="form-group">
                                             <select class="form-control selectpicker" data-style="btn btn-link"
                                                 id="sede">
+                                                @if (Auth::user()->hasRole('coordinador'))
+                                                <option >Selecciona una sede</option>
+                                                    @foreach (Auth::user()->sedes as $sede)
+                                                    <option value="{{$sede->id}}">{{$sede->name}}</option>
 
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -249,8 +274,26 @@
                 $("#content_ambiente").html(data.ambientes);
                 $("#select_instructor").html(data.instructores);
                 $("#select_competencia").html(data.competencias);
+           },error:function(err,msg){
+            $("#content_ambiente").html("");
+
            }
        });
+    });
+    $(document).on('click','.eliminar_horario',function(){
+        if (window.confirm("¿Seguro deseas eliminar todo el horario? todos los ambientes quedaran vacios!")) {
+  $.ajax({
+      type:"POST",
+      url: 'delete/horariosede/'+$("#sede").val()+"/"+$('#ficha').val(),
+      data: {"_token": "{{ csrf_token() }}"},
+      success:function(data){
+          alert("Se a borrado todo el horario de esta sede");
+        $("#content_ambiente").html(data.ambientes);
+        $("#select_instructor").html(data.instructores);
+        $("#select_competencia").html(data.competencias);
+      }
+  })
+}
     });
     $("#guardar").click(function(){
         $.ajax({
@@ -276,8 +319,12 @@
                 else if(data=="error-hour"){
                     alert("La hora inicial no puede ser mayor que la final");
                 }
+                else if(data=="error-time"){
+                    alert("Esta superando las horas disponibles del instructor");
+                }
                 else{
-                    $("#ambiente_"+$("#ambiente_id").val()).html(data);
+                    $("#ambiente_"+$("#ambiente_id").val()).html(data.ambiente);
+                    $("#select_instructor").html(data.instructores);
                     $('.close').click();
                 }
 
@@ -292,7 +339,8 @@
             "inicio":$("#hora_inicial_edit").val(),
             "final":$("#hora_final_edit").val(),
             "ambiente":$("#ambiente_edit_id").val(),
-            "day":$("#day_edit_id").val()
+            "day":$("#day_edit_id").val(),
+            "ficha":$("#ficha").val(),
         },
             success: function(data)
             {
@@ -304,9 +352,12 @@
                 }
                 else if(data=="error-hour"){
                     alert("La hora inicial no puede ser mayor que la final");
+                }else if(data=="error-time"){
+                    alert("Esta superando las horas disponibles del instructor");
                 }
                 else{
-                    $("#ambiente_"+$("#ambiente_edit_id").val()).html(data);
+                    $("#ambiente_"+$("#ambiente_id").val()).html(data.ambiente);
+                    $("#select_instructor").html(data.instructores);
                     $('.close').click();
                 }
 
@@ -320,11 +371,13 @@
             type: "POST",
             url: 'delete/horario/'+$("#horario_id").val(),
             data: {"_token": "{{ csrf_token() }}",
+            "ficha":$("#ficha").val(),
             "ambiente":$("#ambiente_edit_id").val()
         },
             success: function(data)
             {
-                    $("#ambiente_"+$("#ambiente_edit_id").val()).html(data);
+                $("#ambiente_"+$("#ambiente_id").val()).html(data.ambiente);
+                    $("#select_instructor").html(data.instructores);
                     $('.close').click();
 
 

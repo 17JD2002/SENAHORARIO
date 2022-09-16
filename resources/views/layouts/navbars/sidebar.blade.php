@@ -80,13 +80,30 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item{{ $activePage == 'Horario' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('horario.index') }}">
-                    <i class="material-icons">calendar_month</i>
-                    <p>{{ __('Horario') }}</p>
+            <li class="nav-item {{ $activePage == 'profile' || $activePage == 'user-management' ? ' active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#laravelExampleee" aria-expanded="true">
+                    <i class="fa fa-users"></i>
+                    <p>Horarios
+                        <b class="caret"></b>
+                    </p>
                 </a>
+                <div class="collapse" id="laravelExampleee">
+                    <ul class="nav">
+                        <li class="nav-item{{ $activePage == 'horarioevento' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('horarioevento.index') }}">
+                                <i class="material-icons">building_user</i>
+                                <span class="sidebar-normal">Horario extra</span>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ $activePage == 'Horario' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('horario.index') }}">
+                                <i class="material-icons">calendar_month</i>
+                                <p>{{ __('Horario') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-
             <li class="nav-item{{ $activePage == 'programa' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('programa.index') }}">
                     <i class="material-icons">bookmarks</i>
@@ -171,18 +188,6 @@
                     <span class="sidebar-normal">Instructor</span>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'programa' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('programa.index') }}">
-                    <i class="material-icons">bookmarks</i>
-                    <p>{{ __('Programa') }}</p>
-                </a>
-            </li>
-            <li class="nav-item{{ $activePage == 'mallas' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('malla.index') }}">
-                    <i class="material-icons">domain</i>
-                    <p>{{ __('Mallas') }}</p>
-                </a>
-            </li>
             <li class="nav-item{{ $activePage == 'fichas' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('ficha.index') }}">
                     <i class="material-icons">numbers</i>
@@ -195,11 +200,29 @@
                     <p>{{ __('Asignar ficha a usuario') }}</p>
                 </a>
             </li>
-            <li class="nav-item{{ $activePage == 'Horario' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ route('horario.index') }}">
-                    <i class="material-icons">calendar_month</i>
-                    <p>{{ __('Horario') }}</p>
+            <li class="nav-item {{ $activePage == 'profile' || $activePage == 'user-management' ? ' active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#laravelExampleee" aria-expanded="true">
+                    <i class="fa fa-users"></i>
+                    <p>Horarios
+                        <b class="caret"></b>
+                    </p>
                 </a>
+                <div class="collapse" id="laravelExampleee">
+                    <ul class="nav">
+                        <li class="nav-item{{ $activePage == 'horarioevento' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('horarioevento.index') }}">
+                                <i class="material-icons">building_user</i>
+                                <span class="sidebar-normal">Horario extra</span>
+                            </a>
+                        </li>
+                        <li class="nav-item{{ $activePage == 'Horario' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('horario.index') }}">
+                                <i class="material-icons">calendar_month</i>
+                                <p>{{ __('Horario') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

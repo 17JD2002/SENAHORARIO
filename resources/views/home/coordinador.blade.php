@@ -57,13 +57,13 @@
                                             <h5>Ambientes</h5>
                                             @php
                                                 use App\Models\Ambiente;
-                                                $cant_fichas=0;
+                                                $cant_ambientes=0;
                                                 foreach ($sedes as $sede){
-                                                    $cant_fichas=$cant_fichas+ $sede->fichas()->count();
+                                                    $cant_ambientes=$cant_ambientes+ $sede->ambientes()->count();
                                                 }
                                             @endphp
                                             <h2 class="text-right"><i
-                                                    class="material-icons f-left">numbers</i><span>{{ $cant_fichas }}</span>
+                                                    class="material-icons f-left">numbers</i><span>{{ $cant_ambientes }}</span>
                                             </h2>
                                             <p class="m-b-0 text-right"><a href="{{ route('ficha.index') }}"
                                                     class="text-white">Ver más</a></p>
